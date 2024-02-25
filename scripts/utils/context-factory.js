@@ -1,7 +1,7 @@
 import * as esbuild from 'esbuild';
 import { lstat, readdir } from 'fs/promises';
 import { join } from 'path';
-import { spawn } from 'child_process';
+import { spawn, execSync } from 'child_process';
 import { resolvePackageNodeModulesPath } from './path-resolution.js';
 
 /**
@@ -133,17 +133,27 @@ export function makeDockerComposeContext(shouldIgnore) {
   return {
     up: () => {
       console.log('\n[BUILD]: Starting docker-compose services');
-      execSync('docker compose up -d', {
-        shell: true,
-        env: process.env,
-      });
+      try {
+        execSync('docker compose up -d', {
+          shell: true,
+          env: process.env,
+        });
+      } catch (e) {
+        console.error('\n[BUILD]: Failed to start docker-compose services');
+        process.exit(1);
+      }
     },
     down: () => {
       console.log('\n[BUILD]: Stopping docker-compose services');
-      execSync('docker compose down', {
-        shell: true,
-        env: process.env,
-      });
+      try {
+        execSync('docker compose down', {
+          shell: true,
+          env: process.env,
+        });
+      } catch (e) {
+        console.error('\n[BUILD]: Failed to stop docker-compose services');
+        process.exit(1);
+      }
     },
   };
 }

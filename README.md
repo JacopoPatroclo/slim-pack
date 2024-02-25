@@ -11,7 +11,7 @@ The aim of this tool is to provide a series of scripts that handle all the task 
 You can install this package using a package manager of your choiche:
 
 ```bash
-pnpm add -D slim-pack
+pnpm i -D slim-pack
 ```
 
 Now you can ivoke the commands directly or configuring them inside your package.json scripts node.
