@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "public/dist",
+    "rootDir": "frontend"
+  },
+  "include": ["client/**/*.tsx", "client/**/*.ts"],
+  "exclude": ["node_modules", "build", "server", "public"]
+}

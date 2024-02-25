@@ -1,0 +1,22 @@
+{
+  "name": "no-config-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "build": "sp",
+    "dev": "sp --dev",
+    "e2e": "sp-e2e",
+    "key-gen": "sp-key"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.11.19",
+    "cypress": "^13.6.5",
+    "typescript": "^5.3.3",
+    "slim-pack": "file:../.."
+  }
+}

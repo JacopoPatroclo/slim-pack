@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "target": "es2017",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "types": ["node"],
+    "paths": {
+      "@/*": ["server/*"]
+    }
+  },
+  "exclude": ["node_modules", "frontend"],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.test.json" },
+    { "path": "./tsconfig.client.json" }
+  ]
+}

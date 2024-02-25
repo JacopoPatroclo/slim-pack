@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "public/dist",
+    "jsx": null,
+    "jsxFactory": null,
+    "jsxFragmentFactory": null,
+    "plugins": []
+  },
+  "include": ["client/**/*.tsx", "client/**/*.ts"],
+  "exclude": ["node_modules", "dist", "src", "public"]
+}

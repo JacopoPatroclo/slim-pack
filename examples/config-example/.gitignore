@@ -1,0 +1,6 @@
+node_modules
+.DS_Store
+build
+public/main.css
+public/dist
+cypress/screenshots

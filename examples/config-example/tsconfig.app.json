@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "build",
+    "rootDir": "server"
+  },
+  "include": ["server/**/*.tsx", "server/**/*.ts"],
+  "exclude": [
+    "node_modules",
+    "build",
+    "frontend",
+    "public",
+    "server/**/*.test.tsx",
+    "server/**/*.test.ts"
+  ]
+}
