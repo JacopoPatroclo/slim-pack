@@ -4,6 +4,7 @@ import { exec, execSync } from 'child_process';
 import { join } from 'path';
 import { parseArgs } from './utils/parse-arguments.js';
 import { lstat } from 'fs/promises';
+import { makeDockerComposeContext } from './utils/context-factory.js';
 
 const { watch, ignoreDockerCompose } = await parseArgs(
   process.argv,
@@ -39,20 +40,9 @@ if (!cypreccConfigTsExists && !cypreccConfigJsExists) {
   process.exit(1);
 }
 
-if (!ignoreDockerCompose) {
-  // Stop and restart the Docker containers ensuring an empty database
-  execSync('docker-compose down --volumes', {
-    shell: true,
-    stdio: null,
-    env: process.env,
-  });
+const dockerCompose = makeDockerComposeContext(ignoreDockerCompose);
 
-  execSync('docker-compose up -d', {
-    shell: true,
-    stdio: null,
-    env: process.env,
-  });
-}
+dockerCompose.up();
 
 const packageJson = await import(join(process.cwd(), 'package.json'), {
   with: { type: 'json' },
@@ -109,5 +99,6 @@ cypress.on('exit', (code) => {
   console.log('Tests have finished with code ' + code);
   // Stop the dev server
   devServer.kill();
+  dockerCompose.down();
   process.exit(code);
 });
