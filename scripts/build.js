@@ -140,7 +140,7 @@ if (dev) {
             res();
           } else {
             console.error(
-              '[TAILWIND]: Failed to build the css file, see above for errors\n',
+              '[TAILWIND]: Failed to execute tailwind see above for errors\n',
             );
             process.exit(1);
           }
