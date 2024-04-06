@@ -2,3 +2,4 @@ examples
 node_modules
 .prettierrc
 .gitignore
+pnpm-workspace.yaml
