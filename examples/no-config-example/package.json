@@ -7,6 +7,7 @@
     "start": "node dist/index.js",
     "build": "sp",
     "dev": "sp --dev",
+    "test": "sp --test",
     "e2e": "sp-e2e",
     "key-gen": "sp-key"
   },

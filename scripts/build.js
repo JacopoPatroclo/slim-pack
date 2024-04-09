@@ -11,6 +11,8 @@ import {
   makeTailwindContext,
   makeDockerComposeContext,
 } from './utils/context-factory.js';
+import { join } from 'path';
+import { getNodeVersion, versionIsGratherThan } from './utils/node-version.js';
 
 // aviable options
 const { dev, test, watch, confPath, ignoreDockerCompose } = await parseArgs(
@@ -44,13 +46,30 @@ const ctxServer = await makeEsbuildServerContext(config, dev, test);
 // we do not need tailwind or client code for tests
 if (test) {
   async function execTest() {
+    const testGlobPath = join(config.serverDist, '**/*.test.js');
+    const specGlobPath = join(config.serverDist, '**/*.spec.js');
+
+    // Needed because apparently node 21 has a different way to run tests
+    // If node 21 is used we need to provide a glob path to the test files
+    // meanwhile in node 20 we must run it with the build directory without
+    // specifying any glob path
+    const nodeVersion = await getNodeVersion();
+    const isNode21 = versionIsGratherThan(nodeVersion, '21.0.0');
+
+    const testDir = isNode21
+      ? `${testGlobPath} ${specGlobPath}`
+      : config.serverDist;
+
     await ctxServer.rebuild();
-    const testProcess = spawn(`node --test ${config.serverDist}`, {
-      shell: true,
-      env: process.env,
-      cwd: process.cwd(),
-      stdio: 'inherit',
-    });
+    const testProcess = spawn(
+      `node --test --experimental-test-coverage ${testDir}`,
+      {
+        shell: true,
+        env: process.env,
+        cwd: process.cwd(),
+        stdio: 'inherit',
+      },
+    );
 
     function waitForTest() {
       return new Promise((res) => {

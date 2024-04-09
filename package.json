@@ -1,6 +1,6 @@
 {
   "name": "slim-pack",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A cli to bundle your backend and frontend together using esbuild and tailwindcss",
   "main": "index.js",
   "type": "module",
